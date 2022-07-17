@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               body: ListView.separated(
-                itemCount: 4,
+                itemCount: model.data!.length,
                 separatorBuilder: (context, index) => const Divider(
                   color: Colors.blueGrey,
                 ),
@@ -55,8 +55,8 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  title: const Text('Note title'),
-                  subtitle: const Text('Note content'),
+                  title: Text(model.data![index].title.toString()),
+                  subtitle: Text(model.data![index].content.toString()),
                   onTap: () {},
                   onLongPress: () {},
                 ),
