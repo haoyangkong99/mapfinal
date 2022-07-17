@@ -3,9 +3,17 @@ import 'package:flutter/material.dart';
 
 import 'package:stacked/stacked.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static Route route() => MaterialPageRoute(builder: (_) => const HomeScreen());
+
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _showless = false;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +64,8 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   title: Text(model.data![index].title.toString()),
-                  subtitle: Text(model.data![index].content.toString()),
+                  subtitle: Text(
+                      _showless ? "" : model.data![index].content.toString()),
                   onTap: () {},
                   onLongPress: () {},
                 ),
@@ -67,14 +76,20 @@ class HomeScreen extends StatelessWidget {
                   FloatingActionButton(
                       child: const Icon(Icons.menu),
                       tooltip: 'Show less. Hide notes content',
-                      onPressed: () {}),
+                      onPressed: () {
+                        _showless = true;
+                        setState(() {});
+                      }),
 
                   /* Notes: for the "Show More" icon use: Icons.menu */
 
                   FloatingActionButton(
                     child: const Icon(Icons.add),
                     tooltip: 'Add a new note',
-                    onPressed: () {},
+                    onPressed: () {
+                      _showless = false;
+                      setState(() {});
+                    },
                   ),
                 ],
               ),
