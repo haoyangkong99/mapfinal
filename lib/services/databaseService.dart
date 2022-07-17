@@ -5,4 +5,5 @@ abstract class DatabaseService {
       String collection);
   Future<QuerySnapshot<Map<String, dynamic>>> readCollectionAsFuture(
       String collection);
+  Future<void> delete(String collection, String docid);
 }

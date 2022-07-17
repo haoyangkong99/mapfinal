@@ -15,11 +15,21 @@ class HomeViewModel extends StreamViewModel<List<Note>> {
   Stream<List<Note>> get stream => fetchNote();
   Stream<List<Note>> fetchNote() {
     print(auth.getUID());
-    return storageService.readCollectionAsStream("notes").map((event) => event
-        .docs
+    return storageService
+        .readCollectionAsStream("notes/${auth.getUID()}/note")
+        .map(
+            (event) => event.docs.map((e) => Note.fromJson(e.data())).toList());
+  }
+
+  Future<void> deleteNote(String title, String content) async {
+    var notes = await storageService.readCollectionAsFuture("notes");
+    var deleteNote = notes.docs
         .map((e) => Note.fromJson(e.data()))
         .toList()
-        .where((element) => element.id == auth.getUID())
-        .toList());
+        .where((element) =>
+            element.title == title &&
+            element.content == content &&
+            element.id == auth.getUID())
+        .toList();
   }
 }

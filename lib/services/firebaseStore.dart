@@ -13,4 +13,16 @@ class FirebaseStore implements DatabaseService {
       String collection) async {
     return db.collection(collection).get();
   }
+
+  Future<void> delete(String collection, String docid) async {
+    try {
+      db
+          .collection(collection)
+          .doc(docid)
+          .delete()
+          .onError((error, stackTrace) => {throw Exception()});
+    } catch (e) {
+      print(e);
+    }
+  }
 }

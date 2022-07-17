@@ -64,7 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Icons.delete,
                                       color: Colors.blue,
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      model.deleteNote(
+                                          model.data![index].title.toString(),
+                                          model.data![index].content
+                                              .toString());
+                                    },
                                   )
                                 : Center(),
                           ],
@@ -85,10 +90,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   FloatingActionButton(
-                      child: const Icon(Icons.menu),
+                      child: _showless
+                          ? Icon(Icons.menu)
+                          : Icon(Icons.unfold_less),
                       tooltip: 'Show less. Hide notes content',
                       onPressed: () {
-                        _showless = true;
+                        if (_showless) {
+                          _showless = false;
+                        } else {
+                          _showless = true;
+                        }
+
                         setState(() {});
                       }),
 
