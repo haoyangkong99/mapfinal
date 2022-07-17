@@ -66,9 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     onPressed: () {
                                       model.deleteNote(
-                                          model.data![index].title.toString(),
-                                          model.data![index].content
-                                              .toString());
+                                        model.data![index].id.toString(),
+                                      );
                                     },
                                   )
                                 : Center(),

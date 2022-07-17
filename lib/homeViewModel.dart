@@ -21,15 +21,7 @@ class HomeViewModel extends StreamViewModel<List<Note>> {
             (event) => event.docs.map((e) => Note.fromJson(e.data())).toList());
   }
 
-  Future<void> deleteNote(String title, String content) async {
-    var notes = await storageService.readCollectionAsFuture("notes");
-    var deleteNote = notes.docs
-        .map((e) => Note.fromJson(e.data()))
-        .toList()
-        .where((element) =>
-            element.title == title &&
-            element.content == content &&
-            element.id == auth.getUID())
-        .toList();
+  Future<void> deleteNote(String id) async {
+    await storageService.delete("notes/${auth.getUID()}/note", id);
   }
 }
