@@ -10,4 +10,7 @@ abstract class DatabaseService {
       String collection, String document);
   Stream<DocumentSnapshot<Map<String, dynamic>>> readDocumentAsStream(
       String collection, String document);
+  String getCreatedDocumentID(String collection);
+  Future<void> add(String collection, String docid, dynamic data);
+  Future<bool> update(String table, String docid, dynamic data);
 }

@@ -95,6 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   FloatingActionButton(
+                      heroTag: null,
                       child: _showless
                           ? Icon(Icons.menu)
                           : Icon(Icons.unfold_less),
@@ -112,6 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   /* Notes: for the "Show More" icon use: Icons.menu */
 
                   FloatingActionButton(
+                    heroTag: null,
                     child: const Icon(Icons.add),
                     tooltip: 'Add a new note',
                     onPressed: () {

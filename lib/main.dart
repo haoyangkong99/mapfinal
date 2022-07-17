@@ -1,4 +1,5 @@
 import 'package:finalexam/app/route.locator.dart';
+import 'package:finalexam/app/route.router.dart';
 import 'package:finalexam/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,8 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(),
       navigatorKey: StackedService.navigatorKey,
-      // onGenerateRoute: StackedRouter().onGenerateRoute,
-      // home: const HomeScreen(),
-      // home: const EditScreen(),
+      onGenerateRoute: StackedRouter().onGenerateRoute,
     );
   }
 }

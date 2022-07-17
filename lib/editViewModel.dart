@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:finalexam/app/route.locator.dart';
+import 'package:finalexam/app/route.router.dart';
 import 'package:finalexam/note.dart';
 import 'package:finalexam/services/authService.dart';
 import 'package:finalexam/services/dataPassingService.dart';
@@ -23,6 +24,27 @@ class EditViewModel extends StreamViewModel<Note> {
   }
 
   void navigateBack() {
+    navigate.popRepeated(1);
+  }
+
+  Future<void> saveEdit(String title, String content) async {
+    Note temp = datapassing.data;
+    temp.title = title;
+    temp.content = content;
+    await storageService.update(
+        "notes/${auth.getUID()}/note", temp.id, temp.toJson());
+    navigate.popRepeated(1);
+  }
+
+  Future<void> saveAdd(String title, String content) async {
+    String docid =
+        storageService.getCreatedDocumentID("notes/${auth.getUID()}/note");
+    Note newobj = Note();
+    newobj.id = docid;
+    newobj.title = title;
+    newobj.content = content;
+    await storageService.add(
+        "notes/${auth.getUID()}/note", docid, newobj.toJson());
     navigate.popRepeated(1);
   }
 }
