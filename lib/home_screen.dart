@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _showless = false;
+  int? iconindex = null;
 
   @override
   Widget build(BuildContext context) {
@@ -39,37 +40,47 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               body: ListView.separated(
-                itemCount: model.data!.length,
-                separatorBuilder: (context, index) => const Divider(
-                  color: Colors.blueGrey,
-                ),
-                itemBuilder: (context, index) => ListTile(
-                  trailing: SizedBox(
-                    width: 110.0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.blue),
-                          onPressed: () {},
+                  itemCount: model.data!.length,
+                  separatorBuilder: (context, index) => const Divider(
+                        color: Colors.blueGrey,
+                      ),
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      trailing: SizedBox(
+                        width: 110.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            iconindex != null && iconindex == index
+                                ? IconButton(
+                                    icon: const Icon(Icons.edit,
+                                        color: Colors.blue),
+                                    onPressed: () {},
+                                  )
+                                : Center(),
+                            iconindex != null && iconindex == index
+                                ? IconButton(
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.blue,
+                                    ),
+                                    onPressed: () {},
+                                  )
+                                : Center(),
+                          ],
                         ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.blue,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-                  title: Text(model.data![index].title.toString()),
-                  subtitle: Text(
-                      _showless ? "" : model.data![index].content.toString()),
-                  onTap: () {},
-                  onLongPress: () {},
-                ),
-              ),
+                      ),
+                      title: Text(model.data![index].title.toString()),
+                      subtitle: Text(_showless
+                          ? ""
+                          : model.data![index].content.toString()),
+                      onTap: () {},
+                      onLongPress: () {
+                        iconindex = index;
+                        setState(() {});
+                      },
+                    );
+                  }),
               floatingActionButton: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

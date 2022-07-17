@@ -11,6 +11,7 @@ class HomeViewModel extends StreamViewModel<List<Note>> {
   final navigate = locator<NavigationService>();
   final storageService = locator<DatabaseService>();
   final auth = locator<AuthService>();
+
   Stream<List<Note>> get stream => fetchNote();
   Stream<List<Note>> fetchNote() {
     print(auth.getUID());
