@@ -23,6 +23,10 @@ class _EditScreenState extends State<EditScreen> {
         viewModelBuilder: () => EditViewModel(),
         builder: (context, model, child) {
           if (model.dataReady) {
+            if (widget.type != "add") {
+              _titleController.text = model.data!.title!;
+              _descriptionController.text = model.data!.content!;
+            }
             return Scaffold(
               appBar: AppBar(
                 leading: Container(),
