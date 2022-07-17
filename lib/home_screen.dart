@@ -55,7 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ? IconButton(
                                     icon: const Icon(Icons.edit,
                                         color: Colors.blue),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      model.navigateToSecondScreen(
+                                          model.data![index], "edit");
+                                    },
                                   )
                                 : Center(),
                             iconindex != null && iconindex == index
@@ -78,7 +81,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       subtitle: Text(_showless
                           ? ""
                           : model.data![index].content.toString()),
-                      onTap: () {},
+                      onTap: () {
+                        model.navigateToSecondScreen(
+                            model.data![index], "view");
+                      },
                       onLongPress: () {
                         iconindex = index;
                         setState(() {});
@@ -109,8 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Icon(Icons.add),
                     tooltip: 'Add a new note',
                     onPressed: () {
-                      _showless = false;
-                      setState(() {});
+                      model.navigateToAdd("add");
                     },
                   ),
                 ],

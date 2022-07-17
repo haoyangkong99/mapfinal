@@ -6,4 +6,8 @@ abstract class DatabaseService {
   Future<QuerySnapshot<Map<String, dynamic>>> readCollectionAsFuture(
       String collection);
   Future<void> delete(String collection, String docid);
+  Future<DocumentSnapshot<Map<String, dynamic>>> readDocumentAsFuture(
+      String collection, String document);
+  Stream<DocumentSnapshot<Map<String, dynamic>>> readDocumentAsStream(
+      String collection, String document);
 }

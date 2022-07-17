@@ -1,71 +1,92 @@
+import 'package:finalexam/editViewModel.dart';
+import 'package:finalexam/note.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 class EditScreen extends StatefulWidget {
-  static Route route() => MaterialPageRoute(builder: (_) => const EditScreen());
+  final String type;
 
-  const EditScreen({Key? key}) : super(key: key);
+  const EditScreen({Key? key, required this.type}) : super(key: key);
 
   @override
   State<EditScreen> createState() => _EditScreenState();
 }
 
 class _EditScreenState extends State<EditScreen> {
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Container(),
-        centerTitle: true,
-        title: const Text('App Bar Title'),
-        actions: [
-          IconButton(
-              icon: const Icon(
-                Icons.check_circle,
-                size: 30,
+    return ViewModelBuilder<EditViewModel>.reactive(
+        viewModelBuilder: () => EditViewModel(),
+        builder: (context, model, child) {
+          if (model.dataReady) {
+            return Scaffold(
+              appBar: AppBar(
+                leading: Container(),
+                centerTitle: true,
+                title: Text(widget.type == "view"
+                    ? "View Note"
+                    : widget.type == "edit"
+                        ? "Edit Note"
+                        : "Add New Note"),
+                actions: [
+                  widget.type == "view"
+                      ? Center()
+                      : IconButton(
+                          icon: const Icon(
+                            Icons.check_circle,
+                            size: 30,
+                          ),
+                          onPressed: () {}),
+                  IconButton(
+                      icon: const Icon(
+                        Icons.cancel_sharp,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        model.navigateBack();
+                      }),
+                ],
               ),
-              onPressed: () {}),
-          IconButton(
-              icon: const Icon(
-                Icons.cancel_sharp,
-                size: 30,
+              body: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _titleController,
+                      initialValue: null,
+                      enabled: widget.type == "view" ? false : true,
+                      decoration: const InputDecoration(
+                        hintText: 'Type the title here',
+                      ),
+                      onChanged: (value) {},
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                          controller: _descriptionController,
+                          enabled: widget.type == "view" ? false : true,
+                          initialValue: null,
+                          maxLines: null,
+                          expands: true,
+                          decoration: const InputDecoration(
+                            hintText: 'Type the description',
+                          ),
+                          onChanged: (value) {}),
+                    ),
+                  ],
+                ),
               ),
-              onPressed: () {}),
-        ],
-      ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          children: [
-            TextFormField(
-              controller: _titleController,
-              initialValue: null,
-              enabled: true,
-              decoration: const InputDecoration(
-                hintText: 'Type the title here',
-              ),
-              onChanged: (value) {},
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Expanded(
-              child: TextFormField(
-                  controller: _descriptionController,
-                  enabled: true,
-                  initialValue: null,
-                  maxLines: null,
-                  expands: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Type the description',
-                  ),
-                  onChanged: (value) {}),
-            ),
-          ],
-        ),
-      ),
-    );
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 }

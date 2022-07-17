@@ -10,6 +10,7 @@ import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../services/authService.dart';
+import '../services/dataPassingService.dart';
 import '../services/databaseService.dart';
 import '../services/firebaseAuth.dart';
 import '../services/firebaseStore.dart';
@@ -26,4 +27,5 @@ Future<void> setupLocator(
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton<AuthService>(() => FirebaseAuthentication());
   locator.registerLazySingleton<DatabaseService>(() => FirebaseStore());
+  locator.registerLazySingleton(() => DataPassingService());
 }

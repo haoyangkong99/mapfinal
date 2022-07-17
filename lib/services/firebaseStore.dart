@@ -25,4 +25,14 @@ class FirebaseStore implements DatabaseService {
       print(e);
     }
   }
+
+  Stream<DocumentSnapshot<Map<String, dynamic>>> readDocumentAsStream(
+      String collection, String document) {
+    return db.collection(collection).doc(document).snapshots();
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> readDocumentAsFuture(
+      String collection, String document) async {
+    return db.collection(collection).doc(document).get();
+  }
 }
